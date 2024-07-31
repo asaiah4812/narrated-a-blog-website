@@ -7,10 +7,6 @@ This is a inventory management system
 https://github.com/asaiah4812/narrated-a-blog-website.git
 ```
 
-2. Go To Project Directory
-```
-cd inventory-management
-```
 3. Create Virtual Environment
 ```
 python3 -m venv venv
