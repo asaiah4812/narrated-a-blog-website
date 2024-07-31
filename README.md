@@ -4,7 +4,7 @@ This is a inventory management system
 # How to Setup
 1. Clone Project
 ```
-git clone https://github.com/asaiah4812
+https://github.com/asaiah4812/narrated-a-blog-website.git
 ```
 
 2. Go To Project Directory
