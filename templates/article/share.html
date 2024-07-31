@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Share a article{% endblock %}
+{% block content %}
+  <section class="share">
+      {% if sent %}
+      <h1>E-mail successfully sent</h1>
+      <p>
+      "{{ article.title }}" was successfully sent to {{ form.cleaned_data.to }}.
+      </p>
+      <a href="{{ request.META.HTTP_REFERER }}" class="comment-submit">back</a>
+      {% else %}
+      <h1>Share "{{ article.title }}" by e-mail</h1>
+      <form class="share__form" method="POST">
+     {{ form.as_p }}
+      {% csrf_token %}
+       <button type="submit" value="Send e-mail"> SEND E-MAIL</button>
+      </form>
+      {% endif %}
+
+  </section>
+{% endblock %}

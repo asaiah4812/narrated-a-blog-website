@@ -1,0 +1,73 @@
+ {% load static %}
+ {% load humanize %} 
+ <style>
+    .delete{
+        text-decoration: none;
+         color:inherit; 
+    }
+    .delete:hover{
+        transform: scale(1.1);
+    }
+ </style>
+ <div class="comment-list" >
+
+          <div class="flex">
+            <div class="user">
+              <div class="user-image">
+                <img src="{% static '/images/Asaiah Henson.jpg' %}" alt="" />
+              </div>
+              <div class="user-media">
+                <div class="name">Asaiah</div>
+                <div class="day">{{comment.created|naturaltime}}</div>
+              </div>
+            </div>
+            <div class="reply">
+              {% with comments.count as total_comments %}
+              <div class="lick icon">
+                {{ total_comments }} comment{{ total_comments|pluralize }}
+              </div>
+              {% endwith %}
+
+              <div class="dislick icon">
+                <a 
+                style="color: var(--primary); cursor:pointer;"
+                hx-get="{% url 'like' comment.id %}"
+                hx-target="#like-{{ comment.id }}"
+                hx-swap="innerHTML"
+                >
+                  <i class="fa-solid fa-thumbs-up"></i>
+                </a>
+                <div id="like-{{ comment.id }}">
+                  <fade-in class="opacity-0 ease-in-out" _="on load transition my opacity to 1 over 2 seconds">
+                    {{ comment.likes.count }}
+                  </fade-in>
+                </div>
+              </div>
+              <div class="dislick icon">
+                <a 
+                style="color: var(--primary); cursor:pointer;"
+                hx-get="{% url 'dislike' comment.id %}"
+                hx-target="#dislike-{{ comment.id }}"
+                hx-swap="innerHTML"
+                >
+                  <i class="fa-solid fa-thumbs-down"></i>
+                </a>
+                <div id="dislike-{{ comment.id }}">
+                  {{ comment.dislikes.count }}
+                </div>
+              </div>
+              <div class="re-comment">Reply</div>
+            </div>
+          </div>
+          <div class="comment">
+            <p class="info">
+              Comment {{ forloop.counter }} by {{ comment.author.username }}
+            </p>
+            {{ comment.body|linebreaks|safe }}
+            {% if user.is_authenticated and comment.author == user %}
+            <div class="dislick " >
+                <a href="{% url 'comment-delete' comment.id %}" class="delete"><i class="fa-solid fa-trash-can"></i></a>
+            </div>
+            {% endif %}
+          </div>
+        </div>

@@ -1,0 +1,39 @@
+ {% load static %}
+ <nav class="navbar">
+      <div class="navbar__left">
+        <a href="{% url 'article:home' %}">
+          <img src="{% static 'images/logo.svg' %}" alt="" />
+        </a>
+        <button title="Toggle Dark Mode" id="icons">
+          <i class="bx bxs-sun"></i>
+        </button>
+      </div>
+      <div class="navbar__right">
+          <ul>
+              <li><a href="{% url 'article:article_list' %}">Articles</a></li>
+              <li><a href="">Inspiration</a></li>
+              <li><a href="">Books</a></li>
+              <li><a href="{% url 'profile' %}">Podcasts</a></li>
+              {% if user.is_authenticated %}
+              <li><a href="{% url 'article:create' %}" style="display: flex; align-items:center;">Write<i class='bx bxs-edit' style="margin-left: 8px;"></i></a></li>
+              <li><a href="{% url 'logout' %}" style="display: flex; align-items:center;">logout<i class="fa-solid fa-right-to-bracket" style="margin-left: 8px;"></i></a></li>
+          {% else %}
+          <li><a href="{% url 'login' %}" style="display: flex; align-items:center;">Get Start<i class="fa-solid fa-right-to-bracket" style="margin-left: 8px;"></i></a></li>
+            {% endif %}
+        </ul>
+      </div>
+      <div class="sidebar">
+        <ul>
+          <li onclick="CloseSidebar()"><i class="bx bx-x"></i></li>
+          <li><a href="">Articles</a></li>
+          <li><a href="./Inspiration.html">Inspiration</a></li>
+          <li><a href="#">Books</a></li>
+          <li><a href="#">Podcasts</a></li>
+          <li><a href="#">Courses</a></li>
+          <li><a href="{% url 'article:create' %}">Write</a></li>
+        </ul>
+      </div>
+      <div onclick="OpenSidebar()" class="menu">
+        <i class="bx bx-menu-alt-right"></i>
+      </div>
+    </nav>

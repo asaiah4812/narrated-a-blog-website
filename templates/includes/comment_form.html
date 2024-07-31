@@ -1,0 +1,28 @@
+{% load static %}
+
+<style>
+  .comment-box {
+    margin-bottom: 1rem;
+  }
+  .comment-box input::placeholder {
+    color: var(--place);
+  }
+</style>
+
+<form
+  autocomplete="off"
+  class="comment-box"
+  hx-post="{% url 'article:comment-sent' article.id %}"
+  hx-target="#comment"
+  hx-swap="afterbegin"
+  _="on htmx:afterRequest reset() me"
+>
+  <div class="user">
+    <div class="image">
+      <img src="" alt="" />
+    </div>
+    <div class="name"><span>Asaiah Henson</span></div>
+  </div>
+  {% csrf_token %} {{ commentform }}
+  <button type="submit" class="comment-submit">Post Comment</button>
+</form>

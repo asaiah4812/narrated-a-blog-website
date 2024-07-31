@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %} All Article {% endblock %}
+
+{% block content %}
+
+<section class="search" id="articles">
+      <h1>All Articles</h1>
+      <form method="get" class="search__input ">
+        <input type="text" name="title" placeholder="Search articles" />
+        <button><i class="bx bxs-search"></i></button>
+      </form>
+    </section>
+
+     <section class="article__section" >
+        {% for article in articles %} 
+      <article class="articles">
+        <h2>{{article.title}}</h2>
+        <p>
+          {{article.content|truncatewords:37|safe}}
+        </p>
+        <div class="tags" style="flex-wrap: wrap;">
+            {% for tag in article.tags.all %}
+            {% if forloop.counter <= 6 %}
+            <a href="{% url 'article:category' tag.slug %}">{{tag}}</a>
+            {% endif %}
+            {% endfor %}
+        </div>
+        <div class="articles__readmore">
+          <a href="{{ article.get_absolute_url }}">Read more <i class="bx bx-chevrons-right"></i></a>
+          <span>{{article.publish|naturaltime}}</span>
+        </div>
+      </article>
+      {% empty %}
+      <h1 style="text-align: center; color: #afafaf;">No Article with That Name...</h1>
+      {% endfor %}
+    </section>
+    <div class="container  text-center my-5 mx-auto flex items-center">
+      {%  include 'includes/pagination.html' with page=articles %}
+    </div>
+    
+    
+    {% endblock %}
